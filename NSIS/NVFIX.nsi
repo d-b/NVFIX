@@ -88,6 +88,10 @@
             Abort "Failed to install NVFIX as a service."
         nsExec::Exec 'net start NVFIX'
 
+        WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\Eventlog\Application" "" "NVFIX"
+        WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\Eventlog\Application\NVFIX" "EventMessageFile" "$INSTDIR\NVFIX.exe"
+        WriteRegDWORD HKLM "SYSTEM\CurrentControlSet\Services\Eventlog\Application\NVFIX" "TypesSupported" 0x07        
+
         CreateDirectory "$INSTDIR"
         WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\NVFIX" "DisplayName" "NVFIX: Clock Recovery Service"
         WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\NVFIX" "DisplayIcon" '"$INSTDIR\NVFIX.exe"'
@@ -108,6 +112,7 @@
         SetShellVarContext all
         Delete "$INSTDIR\Uninstaller.exe"
         DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\NVFIX"
+        DeleteRegKey HKLM "SYSTEM\CurrentControlSet\Services\Eventlog\Application\NVFIX"
         nsExec::Exec 'net stop NVFIX'
         nsExec::Exec '"$INSTDIR\NVFIX.exe" uninstall'
         Delete "$INSTDIR\NVFIX.exe"
