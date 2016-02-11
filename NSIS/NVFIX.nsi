@@ -104,8 +104,12 @@
         CreateDirectory "$SMPROGRAMS\NVFIX\"
         CreateShortCut "$SMPROGRAMS\NVFIX\Uninstall.lnk" "$INSTDIR\Uninstaller.exe" "" "$INSTDIR\Uninstaller.exe" 0
         SetOutPath "$SMPROGRAMS\NVFIX\"
-        File "Links\Make a small donation.url"
-        File "Links\NVFIX @ GitHub.url"
+        WriteINIStr "$SMPROGRAMS\NVFIX\Make a small donation.url" "InternetShortcut" "URL" "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3MXW2Z8VU3MJC"
+        WriteINIStr "$SMPROGRAMS\NVFIX\Make a small donation.url" "InternetShortcut" "IconFile" "$INSTDIR\NVFIX.exe"
+        WriteINIStr "$SMPROGRAMS\NVFIX\Make a small donation.url" "InternetShortcut" "IconIndex" "0"
+        WriteINIStr "$SMPROGRAMS\NVFIX\NVFIX @ GitHub.url" "InternetShortcut" "URL" "https://github.com/d-b/NVFIX"
+        WriteINIStr "$SMPROGRAMS\NVFIX\NVFIX @ GitHub.url" "InternetShortcut" "IconFile" "$INSTDIR\NVFIX.exe"
+        WriteINIStr "$SMPROGRAMS\NVFIX\NVFIX @ GitHub.url" "InternetShortcut" "IconIndex" "0"
     SectionEnd
 
     Section "Uninstall"
